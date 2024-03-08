@@ -28,7 +28,7 @@ export default class TweetService {
   }
 
   async updateTweet(tweetId, text) {
-    return this.fetch(`/tweets/${tweetId}`, {
+    return this.http.fetch(`/tweets/${tweetId}`, {
       method: 'PUT',
       body: JSON.stringify({ text }),
     });
