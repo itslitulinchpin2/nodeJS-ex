@@ -2,6 +2,19 @@ import express from 'express';
 import { body, param, validationResult } from 'express-validator';
 
 const app = express();
+
+const validate = (req,res,next)=>{
+    //valdationResult 또한 express-validator 라이브러리
+    
+    const errors = validationResult(req);
+    
+    if(errors.isEmpty()){
+        next();
+    }
+
+    return res.status(400).json({message: errors.array() });
+    
+}
 app.use(express.json());
 
 //콜백은 여러개 등록 가능하므로,
@@ -9,9 +22,12 @@ app.use(express.json());
 //여러 검사를 배열로 저장 가능
 //체이닝이 가능하다!
 
+
+
 app.post('/users',
         [
         body('name')
+        .trim() //trim을 통해 혹시 모를 공백을 제거해서 요청을 보낸다.
         .notEmpty()
         .withMessage('이름을 입력해야햠')
         .isLength({min:2})
@@ -24,34 +40,29 @@ app.post('/users',
 
         body('email')
         .isEmail()
-        .withMessage('이메일을 입력해야함'),
+        .withMessage('이메일을 입력해야함')
+        .normalizeEmail(), //이메일 포맷에 맞도록
 
         body('job.name')
-        .notEmpty()
+        .notEmpty(),
+
+        validate
     ],
         (req,res,next) => {
     
-        //valdationResult 또한 express-validator 라이브러리
-        const errors = validationResult(req);
-        if(!errors.isEmpty()){
-            return res.status(400).json({message: errors.array() });
-        }
+        
         console.log(req.body);
         res.sendStatus(201);
     });
 
 app.get('/:email',
+    [
     param('email')
     .isEmail()
-    .withMessage('이메일을 입력해야함')
+    .withMessage('이메일 포맷이 아님')
+    ,validate
+    ]
     ,(req,res,next) => {
-
-        const errors = validationResult(req);
-
-        if(!errors.isEmpty()){
-            //return 쓰는거 깜빡해선 안됨!
-            return res.status(400).json({message:errors.array()})
-        }
         res.send('mail');
     });
 
