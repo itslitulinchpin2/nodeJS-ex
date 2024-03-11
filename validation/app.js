@@ -12,7 +12,7 @@ const validate = (req,res,next)=>{
         next();
     }
 
-    return res.status(400).json({message: errors.array() });
+    return res.status(400).json({message: errors.array()[0].msg });
     
 }
 app.use(express.json());
