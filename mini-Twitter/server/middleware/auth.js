@@ -5,9 +5,9 @@ const AUTH_ERR = {message: 'Authentication Error'};
 
 export const isAuth = async (req,res,next) => {
     const authHeader = req.get('Authorization'); //Authorization은 key로 명시돼있음
-    console.log(authHeader);
+
     if(!(authHeader && authHeader.startsWith('Bearer '))){
-        console.log("여기문제");
+      
         return res.status(401).json(AUTH_ERR);
     }
 

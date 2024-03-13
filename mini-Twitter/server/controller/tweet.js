@@ -14,6 +14,7 @@ export async function getTweets(req,res){
 export async function getTweet(req,res){
     const id = req.params.id;
     const data = await tweetRepository.getbyId(id);
+    
     if(data){
         res.status(200).json(data);
     } else{
@@ -22,8 +23,9 @@ export async function getTweet(req,res){
 }
 
 export async function createTweet(req,res){
-    const {text, name, username} = req.body;
-    const tweet= await tweetRepository.create(text,name,username)
+    const {text} = req.body;
+    const userId = req.userId;
+    const tweet= await tweetRepository.create(text,userId)
     
     res.status(201).json(tweet)
 }

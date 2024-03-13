@@ -27,10 +27,12 @@ export async function getAll(){
 }
 
 export async function getAllByUsername(username){
-
+    
     return getAll().then((tweets)=>{
         tweets.filter((tweet)=>tweet.username===username);
     })
+
+    
     //filter는 조건에 맞는 것들을 모두 담아 배열로 반환
    
 }
@@ -42,7 +44,7 @@ export async function getbyId(id){
         return null;
     }
     const {username,name,url} = await userRepository.findById(found.userId)
-    
+   
     return {...found,username,name,url};
 }
 
