@@ -12,7 +12,7 @@ import TokenStorage from './db/token';
 
 const tokenStorage = new TokenStorage();
 const baseURL = "http://localhost:8080"
-const httpClient = new HttpClient(baseURL);
+const httpClient = new HttpClient(baseURL, authErrorEventBus);
 const authErrorEventBus = new AuthErrorEventBus();
 const authService = new AuthService(httpClient,tokenStorage);
 const tweetService = new TweetService(httpClient,tokenStorage);
