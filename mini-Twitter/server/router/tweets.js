@@ -25,7 +25,7 @@ const validateTweet = [
 //그냥 함수명을 전달해야 함.
 //;를 붙이면 안된다!
 
-router.get('/', isAuth, tweetController.getTweets);
+router.get('', isAuth, tweetController.getTweets);
 
 router.get(`/:id`,isAuth, tweetController.getTweet);
 

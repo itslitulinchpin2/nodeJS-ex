@@ -28,9 +28,18 @@ export async function getAll(){
 
 export async function getAllByUsername(username){
     
-    return getAll().then((tweets)=>{
-        tweets.filter((tweet)=>tweet.username===username);
-    })
+   let array=[];
+
+   await getAll().then((tweets)=>{
+    console.log("시작");
+    console.log(tweets);
+    array = tweets.filter((tweet)=>tweet.username===username);
+    console.log(array);
+    console.log("끝")
+   })
+
+   return array;
+   
 
     
     //filter는 조건에 맞는 것들을 모두 담아 배열로 반환
