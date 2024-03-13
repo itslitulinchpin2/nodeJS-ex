@@ -3,6 +3,7 @@ import 'express-async-error';
 import {body} from 'express-validator';
 import {validate} from '../middleware/validator.js';
 import * as authController from '../controller/auth.js'
+import { isAuth } from '../middleware/auth.js';
 
 const router = express.Router();
 
@@ -29,11 +30,14 @@ const validateSignup = [
         .optional({nullable:true, checkFalsy:true}),
 ]
 
-router.get('/me',(req,res,next) => {})
+
 
 router.post('/signup', validateSignup, authController.signup)
 
 router.post('/login', validateCredential, authController.login);
+
+router.get('/me',isAuth, authController.me);
+
 // router.post('/signup', (req,res,next) => {
 //     const {username,password,name,eamil,url} = req.body;
 //     const signupInfo = function(username,password,name,eamil,url){

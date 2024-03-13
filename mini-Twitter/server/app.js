@@ -13,7 +13,10 @@ app.use(morgan('tiny'));
 app.use(cors());
 
 app.use('/tweets', tweetsRouter);
-app.use('/auth',authRouter)
+app.use('/auth',authRouter);
+app.get('/', (req,res,next) => {
+    res.status(200).json({message:'hi'});
+});
 
 
 

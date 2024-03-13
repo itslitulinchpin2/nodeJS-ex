@@ -23,10 +23,13 @@ export async function getAll(){
 }
 
 export async function getAllByUsername(username){
+
+    //filter는 조건에 맞는 것들을 모두 담아 배열로 반환
     return tweets.filter((tweet)=>tweet.username===username)
 }
 
 export async function getbyId(id){
+    //find는 제일 먼저 조건에 맞는 객체 그 자체를 반환
     return tweets.find((tweet)=>tweet.id===id)
 }
 

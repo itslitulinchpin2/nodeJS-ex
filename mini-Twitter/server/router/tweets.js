@@ -4,6 +4,7 @@ import { body, param, validationResult } from 'express-validator';
 import * as tweetRepository from '../data/tweet.js'
 import * as tweetController from '../controller/tweet.js'
 import {validate} from '../middleware/validator.js';
+import { isAuth } from '../middleware/auth.js';
 //GET /tweets
 //GET /tweets?username=:username
 //GET /tweets/:id
@@ -24,14 +25,14 @@ const validateTweet = [
 //그냥 함수명을 전달해야 함.
 //;를 붙이면 안된다!
 
-router.get('/', tweetController.getTweets);
+router.get('/', isAuth, tweetController.getTweets);
 
-router.get(`/:id`, tweetController.getTweet);
+router.get(`/:id`,isAuth, tweetController.getTweet);
 
-router.post('/', validateTweet,tweetController.createTweet)
+router.post('/', isAuth, validateTweet,tweetController.createTweet)
 
-router.put(`/:id`, validateTweet, tweetController.updateTweet)
+router.put(`/:id`, isAuth, validateTweet, tweetController.updateTweet)
 
-router.delete(`/:id`, tweetController.deleteTweet)
+router.delete(`/:id`, isAuth, tweetController.deleteTweet)
 
 export default router;
