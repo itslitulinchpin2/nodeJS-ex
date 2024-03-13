@@ -34,13 +34,18 @@ export async function createTweet(req,res){
 
 export async function updateTweet(req,res){
     const id = req.params.id;
+    
     const text = req.body.text;
+    
 
-    const tweet = await tweetRepository.getbyId(req.id);
+    const tweet = await tweetRepository.getbyId(id);
+    
     if (!tweet){
+        console.log('에러1');
         return res.sendStatus(404)
     }
     if(tweet.userId !==req.userId){
+        console.log('에러2');
         return res.sendStatus(403);
     }
 
@@ -53,14 +58,17 @@ export async function updateTweet(req,res){
 export async function deleteTweet(req,res){
     const id = req.params.id;
 
-    const tweet = await tweetRepository.getbyId(req.id);
+    const tweet = await tweetRepository.getbyId(id);
+    
     if (!tweet){
+        console.log('에러11')
         return res.sendStatus(404)
     }
     if(tweet.userId !==req.userId){
+        console.log('에러22')
         return res.sendStatus(403);
     }
-    
+
     await tweetRepository.remove(id);
     
     res.sendStatus(204);

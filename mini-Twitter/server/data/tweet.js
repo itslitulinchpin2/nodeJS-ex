@@ -31,11 +31,11 @@ export async function getAllByUsername(username){
    let array=[];
 
    await getAll().then((tweets)=>{
-    console.log("시작");
-    console.log(tweets);
+    //console.log("시작");
+    //console.log(tweets);
     array = tweets.filter((tweet)=>tweet.username===username);
-    console.log(array);
-    console.log("끝")
+    //console.log(array);
+    //console.log("끝")
    })
 
    return array;
@@ -48,6 +48,7 @@ export async function getAllByUsername(username){
 
 export async function getbyId(id){
     //find는 제일 먼저 조건에 맞는 객체 그 자체를 반환
+
     const found = tweets.find((tweet)=>tweet.id===id);
     if(!found){
         return null;
