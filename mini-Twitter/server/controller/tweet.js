@@ -43,7 +43,8 @@ export async function updateTweet(req,res){
     
 
     const tweet = await tweetRepository.getbyId(id);
-    
+    console.log('tweet: ',tweet);
+    console.log('userId:' ,tweet.userId);
     if (!tweet){
         console.log('에러1');
         return res.sendStatus(404)
