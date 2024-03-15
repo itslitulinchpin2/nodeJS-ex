@@ -8,7 +8,7 @@ import authRouter from './router/auth.js'
 import { config } from './config.js';
 import { Server } from 'socket.io';
 import {initSocket} from './connection/socket.js'
-import {db, sequelize} from './db/database.js'
+import {connectDB} from './db/database.js'
 const app = express();
 
 
@@ -29,30 +29,13 @@ app.use((error,req,res,next) => {
     res.sendStatus(500);
 })
 
-sequelize.sync().then((client)=>{
-    //console.log(client)
+connectDB().then(()=>{
+    console.log('init!');
     const server = app.listen(config.host.port);
     initSocket(server);
-})
+}).catch(console.error);
+
+    
 
 
-// db.getConnection().then();
-// const server = app.listen(config.host.port); //서버가 리턴된다
-// initSocket(server);
 
-
-// const socketIO = new Server(server, {
-//     cors:{
-//         origin:'*'
-//     }
-// }) //Server는 socket.io의 모듈
-// socketIO.on('connection', (socket)=>{
-//     console.log('Client is here!');
-//     socketIO.emit('twitter', 'hello');
-//     socketIO.emit('twitter', 'hi');
-
-// })
-
-// setInterval(()=>{
-//     socketIO.emit('twitter', 'wesh');
-// },1000);
