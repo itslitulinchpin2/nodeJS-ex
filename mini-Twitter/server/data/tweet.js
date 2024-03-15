@@ -44,7 +44,7 @@ export async function create(text,userId){
     mapOptionalTweet({...tweet, _id:data.insertedId} ))
 }
 
-export async function updateTweet(id,text){
+export async function update(id,text){
     return getTweets()
     .findOneAndUpdate(
         {_id: new MongoDB.ObjectId(id)},
@@ -56,7 +56,7 @@ export async function updateTweet(id,text){
 }
 
 export async function remove(id){
-    return getTweets().deleteOne({id: new MongoDB.ObjectId(id)})
+    return getTweets().deleteOne({_id: new MongoDB.ObjectId(id)})
 }
 
 function mapOptionalTweet(tweet){
