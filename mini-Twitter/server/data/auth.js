@@ -86,3 +86,5 @@ export async function findById(id){
 
     return User.findByPk(id)
 }
+
+console.log('This is mongoDB branch');
